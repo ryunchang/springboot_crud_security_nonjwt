@@ -1,0 +1,58 @@
+##############
+### prd
+##############
+server:
+  port: 9080
+  servlet:
+    context-path: /
+  tomcat:
+    connection-timeout: 5s
+    max-connections: 1000
+    accept-count: 20
+    threads:
+      max: 200
+spring:
+  datasource:
+    platform: mariadb
+    #driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    driverClassName: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://211.43.13.141:40000/EMPLOYEE
+    username: admin
+    #password: caravan
+    password: ENC(h6YDAy6YtwsuvieRhDoSSA==)
+#    hikari:
+#      pool-name: hikari-cp
+#      maximum-pool-size: 30
+#      minimum-idle: 2
+#      data-source-properties:
+#        cachePrepStmts: true
+#        prepStmtCacheSize: 250
+#        prepStmtCacheSqlLimit: 2048
+#        useServerPrepStmts: true
+
+# spring boot - actuator expose
+management:
+  endpoints:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    loggers:
+      enabled: true
+    prometheus:
+      enabled: true
+    web:
+      exposure:
+        include: health,prometheus,loggers,metrics,caches,beans, env, info, mappings
+
+
+springdoc:
+  swagger-ui:
+    operations-sorter: alpha
+    tags-sorter: alpha
+    disable-swagger-default-url: true
+    doc-expansion: none
+
+logging:
+  level:
+    com.kt.edu: trace
